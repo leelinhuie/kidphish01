@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:installed_apps/installed_apps.dart';
 import 'package:installed_apps/app_info.dart';
-import 'package:kidphish01/app_list.dart';
+import 'package:kidphish01/oldpages/app_list.dart';
 import 'dart:typed_data';
 import 'package:kidphish01/widget/bottom_navigator.dart';
 

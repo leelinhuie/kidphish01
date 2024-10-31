@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   installed_apps: ^1.5.2
   image_picker: ^1.1.2
+  flutter_slidable: ^1.2.0
 
 
 dev_dependencies:
