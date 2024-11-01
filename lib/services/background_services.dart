@@ -7,17 +7,13 @@ import 'package:flutter/widgets.dart';
 Future<void> initializeService() async {
   final service = FlutterBackgroundService();
   await service.configure(
-    iosConfiguration: IosConfiguration(
-      autoStart: true,
-      onForeground: onStart,
-      onBackground: onIosBackground,
-    ),
-    androidConfiguration: AndroidConfiguration(
-      onStart: onStart,
-      isForegroundMode: true,
-      autoStart: true,
-    ),
-  );
+      iosConfiguration: IosConfiguration(
+        autoStart: true,
+        onForeground: onStart,
+        onBackground: onIosBackground,
+      ),
+      androidConfiguration: AndroidConfiguration(
+          onStart: onStart, isForegroundMode: true, autoStart: true));
 }
 
 @pragma('vm:entry-point')
@@ -42,18 +38,13 @@ void onStart(ServiceInstance service) async {
   service.on('stopService').listen((event) {
     service.stopSelf();
   });
-
-  Timer.periodic(const Duration(seconds: 1), (timer) async {
-    if (service is AndroidServiceInstance) {
-      if (await service.isForegroundService()) {
-        service.setForegroundNotificationInfo(
-          title: "KidPhish",
-          content: "Running in foreground",
-        );
+  Timer.periodic(const Duration(seconds: 1), (timer) async{
+    if (service is AndroidServiceInstance){
+      if (await service.isForegroundService()){
+        service.setForegroundNotificationInfo(title: "Clement", content: "Running in foreground");
       }
     }
-
-    // Perform some operation in the background
+//// perform some operation on background which is not noticeable to the user
     print("Background service running");
     service.invoke('update');
   });
