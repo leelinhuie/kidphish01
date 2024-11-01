@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kidphish01/home.dart';
-import 'package:kidphish01/lock.dart';
+import 'package:kidphish01/oldpages/home.dart';
+import 'package:kidphish01/oldpages/lock.dart';
 import 'package:kidphish01/user_profile/profile.dart';
-import 'package:kidphish01/report.dart';
+import 'package:kidphish01/oldpages/report.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int selectedIndex;
