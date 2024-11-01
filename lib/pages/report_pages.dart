@@ -32,15 +32,28 @@ class ReportPages extends StatelessWidget {
         foregroundColor: Colors.white,
         centerTitle: true,
       ),
-      body: ListView.builder(
-        itemCount: appUsageData.length,
-        itemBuilder: (context, index) {
-          AppUsage appUsage = appUsageData[index];
-          return ListTile(
-            title: Text(appUsage.appName),
-            subtitle: Text("Usage Time: ${appUsage.usageTime}"),
-          );
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(20), // Add padding around the ListView
+        child: ListView.builder(
+          itemCount: appUsageData.length,
+          itemBuilder: (context, index) {
+            AppUsage appUsage = appUsageData[index];
+            return Container(
+              color: const Color(0xFF37474F), // Background color for each ListTile
+              margin: const EdgeInsets.symmetric(vertical: 4.0), // Optional spacing around items
+              child: ListTile(
+                title: Text(
+                  appUsage.appName,
+                  style: const TextStyle(color: Colors.white), // Set text color
+                ),
+                subtitle: Text(
+                  "Usage Time: ${appUsage.usageTime}",
+                  style: const TextStyle(color: Colors.white70), // Set subtitle text color
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
