@@ -91,7 +91,7 @@ class SupportScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Image.asset(
-                      'assets/cybersecurity.png', // Replace with actual path
+                      'lib/assets/images/cybersecurityMalaysia.jpeg', // Replace with actual path
                       height: 40,
                     ),
                     SizedBox(height: 20),
@@ -101,7 +101,7 @@ class SupportScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Image.asset(
-                      'assets/mcmc.png', // Replace with actual path
+                      'lib/assets/images/mcmc.jpg', // Replace with actual path
                       height: 40,
                     ),
                   ],
