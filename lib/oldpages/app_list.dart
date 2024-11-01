@@ -1,3 +1,4 @@
+
 // import 'package:flutter/material.dart';
 // import 'package:installed_apps/app_info.dart';
 // import 'dart:typed_data';
@@ -39,3 +40,4 @@
 //     );
 //   }
 // }
+
