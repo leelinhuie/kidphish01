@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_background_service/flutter_background_service.dart';
+import 'package:kidphish01/services/background_services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,9 +10,35 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-    void _onRunPressed() {
-    // Add functionality for the RUN button or the big icon button here
-    print('Run button pressed');
+  bool _isRunning = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkServiceStatus();
+  }
+
+  Future<void> _checkServiceStatus() async {
+    final service = FlutterBackgroundService();
+    bool isRunning = await service.isRunning();
+    setState(() {
+      _isRunning = isRunning;
+    });
+  }
+
+  void _onRunPressed() async {
+    final service = FlutterBackgroundService();
+    bool isRunning = await service.isRunning();
+
+    if (isRunning) {
+      service.invoke("stopService");
+    } else {
+      service.startService();
+    }
+
+    setState(() {
+      _isRunning = !isRunning;
+    });
   }
 
   @override
@@ -18,9 +46,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Color.fromRGBO(38, 50, 60, 1),
       appBar: AppBar(
-        title: Text("KidPhish", style: TextStyle(color: Colors.white, fontSize: 40),),
+        title: Text(
+          "KidPhish",
+          style: TextStyle(color: Colors.white, fontSize: 40),
+        ),
         centerTitle: true,
-        toolbarHeight: 200, 
+        toolbarHeight: 200,
         backgroundColor: Color.fromRGBO(38, 50, 60, 1),
       ),
       body: Center(
@@ -38,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
-                  Icons.play_arrow,
+                  _isRunning ? Icons.stop : Icons.play_arrow,
                   size: 120,
                   color: Colors.white,
                 ),
@@ -53,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.symmetric(horizontal: 80, vertical: 30),
               ),
               child: Text(
-                'RUN',
+                _isRunning ? 'STOP' : 'RUN',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 30,
