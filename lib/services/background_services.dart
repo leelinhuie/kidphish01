@@ -8,12 +8,12 @@ Future<void> initializeService() async {
   final service = FlutterBackgroundService();
   await service.configure(
       iosConfiguration: IosConfiguration(
-        autoStart: true,
+        autoStart: false,
         onForeground: onStart,
         onBackground: onIosBackground,
       ),
       androidConfiguration: AndroidConfiguration(
-          onStart: onStart, isForegroundMode: true, autoStart: true));
+          onStart: onStart, isForegroundMode: true, autoStart: false));
 }
 
 @pragma('vm:entry-point')
