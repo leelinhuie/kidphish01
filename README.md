@@ -1,4 +1,10 @@
 # IMPORTANT
+make sure you run
+```
+pip install flask
+pip install flask-cors
+```
+
 
 First run the server.py using
 ```
