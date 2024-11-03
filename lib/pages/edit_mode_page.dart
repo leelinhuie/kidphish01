@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kidphish01/model/modes_model.dart';
 import 'package:installed_apps/app_info.dart';
+import 'package:kidphish01/pages/app_list.dart';
 
 class EditModePage extends StatefulWidget {
   final ModesModel modesModel;
@@ -35,6 +36,21 @@ class _EditModePageState extends State<EditModePage> {
     Navigator.pop(context, true); // Notify LockPage of changes
   }
 
+  void _navigateToAppListPage() {
+    // Get the selected apps based on the current mode
+    final selectedApps = widget.modesModel.installedApps.where((app) {
+      return widget.modesModel.modeApps[widget.modesModel.getMode]?[app.packageName] ?? false;
+    }).toList();
+
+    // Navigate to AppListPage with the selected apps
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AppListPage(selectedApps: selectedApps),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,8 +64,8 @@ class _EditModePageState extends State<EditModePage> {
         centerTitle: true,
       ),
       body: Container(
-        color: const Color(0xFF1F2A37), // Background color for the entire ListView
-        padding: const EdgeInsets.all(20), // Add padding to the ListView
+        color: const Color(0xFF1F2A37),
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -75,19 +91,19 @@ class _EditModePageState extends State<EditModePage> {
                 itemBuilder: (context, index) {
                   AppInfo app = widget.modesModel.installedApps[index];
                   return Container(
-                    color: const Color(0xFF37474F), // Background color for each ListTile
-                    margin: const EdgeInsets.symmetric(vertical: 4.0), // Optional spacing around items
+                    color: const Color(0xFF37474F),
+                    margin: const EdgeInsets.symmetric(vertical: 4.0),
                     child: ListTile(
                       title: Text(
                         app.name,
-                        style: const TextStyle(color: Colors.white), // Set text color
+                        style: const TextStyle(color: Colors.white),
                       ),
                       leading: app.icon != null
                           ? Image.memory(app.icon!)
                           : const Icon(Icons.android, color: Colors.white),
                       trailing: Theme(
                         data: ThemeData(
-                          unselectedWidgetColor: const Color.fromARGB(255, 255, 255, 255), // Color of unchecked checkbox
+                          unselectedWidgetColor: const Color.fromARGB(255, 255, 255, 255),
                         ),
                         child: Checkbox(
                           value: widget.modesModel.modeApps[widget.modesModel.getMode]?[app.packageName] ?? false,
@@ -96,13 +112,33 @@ class _EditModePageState extends State<EditModePage> {
                               widget.modesModel.toggleAppSelection(app.packageName, value!);
                             });
                           },
-                          activeColor: Colors.yellow, // Checkbox color
+                          activeColor: Colors.yellow,
                           checkColor: Colors.black,
                         ),
                       ),
                     ),
                   );
                 },
+              ),
+            ),
+            SizedBox(height: 20),
+            Center(
+              child: ElevatedButton(
+                onPressed: _navigateToAppListPage,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 50.0), // Adjust padding to enlarge the button
+                  child: Text(
+                    'Start',
+                    style: TextStyle(fontSize: 20), // Set the font size for larger text
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.amber,
+                  foregroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30), // Optional: make the button rounded
+                  ),
+                ),
               ),
             ),
           ],
