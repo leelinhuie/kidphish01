@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:async'; // For TimeoutException
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_background_service/flutter_background_service.dart';
@@ -69,8 +69,7 @@ class _HomePageState extends State<HomePage> {
     try {
       print('Checking server connection...');
       final response = await http
-          .get(Uri.parse(
-              'http://10.0.2.2:8090/health')) // Use 10.0.2.2 for Android emulator
+          .get(Uri.parse('http://10.0.2.2:8090/health')) // Use 10.0.2.2 for Android emulator
           .timeout(const Duration(seconds: 5));
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
@@ -136,8 +135,7 @@ class _HomePageState extends State<HomePage> {
     try {
       // Send the URL to the server with a timeout
       var response = await http
-          .post(
-            Uri.parse(
+          .post(Uri.parse(
                 'http://10.0.2.2:8090/check_url'), // Update URL based on your environment
             headers: {'Content-Type': 'application/json'},
             body: json.encode({'url': url}),
@@ -275,7 +273,7 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(
                   fontSize: 24,
                   color:
-                      _result.contains('malicious') ? Colors.red : Colors.green,
+                  _result.contains('malicious') ? Colors.red : Colors.green,
                   fontWeight: FontWeight.bold,
                 ),
               ),
